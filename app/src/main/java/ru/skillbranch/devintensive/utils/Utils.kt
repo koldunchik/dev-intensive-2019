@@ -2,15 +2,22 @@ package ru.skillbranch.devintensive.utils
 
 object Utils {
     fun parseFullName(fullName:String?):Pair<String?, String?> {
-        var parts : List<String>? = fullName?.split(" ");
+        var truncated : String = fullName?.trim()?.replace("\\s+".toRegex(), " ").orEmpty()
+        var parts : List<String>? = truncated?.split(" ");
 
-        var firstName = parts?.getOrNull(0)?.toString().orEmpty();
-        var lastName = parts?.getOrNull(1)?.toString().orEmpty()
-        var thirdName = parts?.getOrNull(2)?.toString().orEmpty();
-        if (thirdName.isNotEmpty()) {
-            lastName = lastName + " " + thirdName
+        var firstName = parts?.getOrNull(0)
+        var lastName: String? = ""
+
+        parts?.subList(1, parts.size)?.iterator()?.forEach { name -> run { lastName += " " + name} }
+
+        when (firstName?.trim()) {
+            "" -> firstName = null
         }
 
-        return Pair(firstName, lastName)
+        when (lastName?.trim()) {
+            "" -> lastName = null
+        }
+
+        return Pair(firstName?.trim(), lastName?.trim())
     }
 }

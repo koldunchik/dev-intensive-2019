@@ -3,7 +3,12 @@ package ru.skillbranch.devintensive
 import org.junit.Test
 
 import org.junit.Assert.*
-import ru.skillbranch.devintensive.models.User
+import ru.skillbranch.devintensive.extensions.TimeUnits
+import ru.skillbranch.devintensive.extensions.add
+import ru.skillbranch.devintensive.extensions.format
+import ru.skillbranch.devintensive.extensions.humanizeDiff
+import ru.skillbranch.devintensive.models.*
+import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -23,24 +28,63 @@ class ExampleUnitTest {
 
     @Test
     fun test_factory(){
-        val userLong = User.makeUser("One Two Three")
-        assertEquals(userLong.firstName, "One")
-        assertEquals(userLong.lastName, "Two Three")
+        var user = User.makeUser(null)
+        assertNull(user.firstName)
+        assertNull(user.lastName)
 
-        val userMiddle = User.makeUser("One Two")
-        assertEquals(userMiddle.firstName, "One")
-        assertEquals(userMiddle.lastName, "Two")
+        user = User.makeUser("")
+        assertNull(user.firstName)
+        assertNull(user.lastName)
 
-        val userShort = User.makeUser("One")
-        assertEquals(userShort.firstName, "One")
-        assertEquals(userShort.lastName, "")
+        user = User.makeUser(" ")
+        assertNull(user.firstName)
+        assertNull(user.lastName)
 
-        val userNothing = User.makeUser(null)
-        assertEquals(userNothing.firstName, "")
-        assertEquals(userNothing.lastName, "")
+        user = User.makeUser("One")
+        assertEquals("One" ,user.firstName)
+        assertNull(user.lastName)
 
-        val userEmpty = User.makeUser(" ")
-        assertEquals(userEmpty.firstName, "")
-        assertEquals(userEmpty.lastName, "")
+        user = User.makeUser("One Two")
+        assertEquals("One", user.firstName)
+        assertEquals("Two", user.lastName )
+
+        user = User.makeUser("    One    Two    Three")
+        assertEquals("One", user.firstName)
+        assertEquals("Two Three", user.lastName)
+
+    }
+
+    @Test
+    fun test_abstract_factory() {
+        val user = User.makeUser("Doctor Steel");
+        val txtMessage = BaseMessage.makeMessage(user, Chat("0"), payload ="any text", type="text")
+        val imgMessage = BaseMessage.makeMessage(user, Chat("0"), payload ="any text", type="image")
+
+        when(txtMessage) {
+            is BaseMessage -> println("this is base")
+            is TextMessage -> println("this is text")
+            is ImageMessage -> println("this is image")
+        }
+    }
+
+    @Test
+    fun test_dates() {
+        println(Date().format())
+        println(Date().add(2, TimeUnits.SECOND).format())
+        println(Date().add(-2, TimeUnits.SECOND).format())
+        println(Date().add(-4, TimeUnits.DAY).format())
+    }
+
+    @Test
+    fun test_humanize_diff(){
+        assertEquals("только что", Date().humanizeDiff(Date().add(-1, TimeUnits.SECOND)))
+        assertEquals("несколько секунд назад", Date().humanizeDiff(Date().add(-33, TimeUnits.SECOND)))
+        assertEquals("2 часа назад", Date().humanizeDiff(Date().add(-2, TimeUnits.HOUR)))
+        assertEquals("5 дней назад", Date().humanizeDiff(Date().add(-5, TimeUnits.DAY)))
+        assertEquals("через 2 минуты", Date().humanizeDiff(Date().add(2, TimeUnits.MINUTE)))
+        assertEquals("через 7 дней", Date().humanizeDiff(Date().add(7, TimeUnits.DAY)))
+        assertEquals("более года назад", Date().humanizeDiff(Date().add(-400, TimeUnits.DAY)))
+        assertEquals("более чем через год", Date().humanizeDiff(Date().add(400, TimeUnits.DAY)))
+
     }
 }
