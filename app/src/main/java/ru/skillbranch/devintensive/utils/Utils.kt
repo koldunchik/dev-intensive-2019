@@ -126,4 +126,14 @@ object Utils {
         } else return ""
 
     }
+
+    fun toInitials(firstName:String?, lastName:String?):String? {
+        var result: String?
+        var first: String? = firstName?.trim()?.getOrNull(0)?.toUpperCase()?.toString()
+        var last: String? = lastName?.trim()?.getOrNull(0)?.toUpperCase()?.toString()
+        if (first.isNullOrEmpty() && last.isNullOrEmpty()) return null;
+        if (last.isNullOrEmpty()) return first.toString();
+        if (first.isNullOrEmpty()) return last.toString();
+        return "${first}${last}";
+    }
 }

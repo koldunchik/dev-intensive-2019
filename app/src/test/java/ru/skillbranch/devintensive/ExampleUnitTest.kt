@@ -160,6 +160,16 @@ class ExampleUnitTest {
     }
 
 
+    @Test
+    fun test_initials() {
+        assertEquals("JD", Utils.toInitials("john", "doe"))
+        assertEquals("J", Utils.toInitials("John", null))
+        assertNull(Utils.toInitials(null, null))
+        assertNull(Utils.toInitials(" ", ""))
 
+        assertEquals("J", Utils.toInitials("john", " "))
+        assertEquals("B", Utils.toInitials(" ", "boss"))
+
+    }
 
 }
