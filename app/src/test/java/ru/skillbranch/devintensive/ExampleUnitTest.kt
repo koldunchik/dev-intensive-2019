@@ -169,4 +169,9 @@ class ExampleUnitTest {
 
     }
 
+    @Test
+    fun test_builder() {
+        var u: User = User.Builder().id("1").firstName("J").lastName("Doc").isOnline(false).build()
+    }
+
 }
