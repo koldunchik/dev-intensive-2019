@@ -72,7 +72,7 @@ fun minutesSuffix(value: Int):String {
 }
 
 
-fun Date.humanizeDiff(date: Date) : String {
+fun Date.humanizeDiff(date: Date = Date()) : String {
     val diffInMs = this.getTime() - date.getTime()
     var delta : Int = TimeUnit.MILLISECONDS.toSeconds(diffInMs).toInt()
     val sign = delta
