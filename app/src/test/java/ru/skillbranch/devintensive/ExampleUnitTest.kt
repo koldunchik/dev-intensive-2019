@@ -8,6 +8,7 @@ import ru.skillbranch.devintensive.extensions.add
 import ru.skillbranch.devintensive.extensions.format
 import ru.skillbranch.devintensive.extensions.humanizeDiff
 import ru.skillbranch.devintensive.models.*
+import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
 /**
@@ -87,4 +88,22 @@ class ExampleUnitTest {
         assertEquals("более чем через год", Date().humanizeDiff(Date().add(400, TimeUnits.DAY)))
 
     }
+
+    @Test
+    fun test_transliteration() {
+        assertEquals("Ivan Stereotipov", Utils.transliteration("Иван Стереотипов"))
+        assertEquals("Amazing_Petr", Utils.transliteration("Amazing Петр", "_"))
+        assertEquals("Privet mir", Utils.transliteration("Привет мир"))
+        assertEquals("    Privet    mir   ", Utils.transliteration("    Привет    мир   "))
+        assertEquals("pRIvet mir", Utils.transliteration("pRIвет мир"))
+        assertEquals("PRIvet Mir", Utils.transliteration("PRIвет Mир"))
+        assertEquals("PRIvet1345 Mir", Utils.transliteration("PRIвет1345 Mир"))
+        assertEquals("[]{}PRIvet Mir/", Utils.transliteration("[]{}PRIвет Mир/"))
+        assertEquals("[]{}PRIvet____Mir/", Utils.transliteration("[]{}PRIвет    Mир/", "_"))
+        assertEquals("[_444__444__444__444_]{}PRIvet_444__444_Mir/", Utils.transliteration("[    ]{}PRIвет  Mир/", "_444_"))
+    }
+
+
+
+
 }
