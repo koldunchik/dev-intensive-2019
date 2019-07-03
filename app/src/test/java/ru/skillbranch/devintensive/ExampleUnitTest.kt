@@ -57,7 +57,7 @@ class ExampleUnitTest {
 
     @Test
     fun test_abstract_factory() {
-        val user = User.makeUser("Doctor Steel");
+        val user = User.makeUser("Василий");
         val txtMessage = BaseMessage.makeMessage(user, Chat("0"), payload ="any text", type="text")
         val imgMessage = BaseMessage.makeMessage(user, Chat("0"), payload ="any text", type="image")
 
@@ -66,6 +66,14 @@ class ExampleUnitTest {
             is TextMessage -> println("this is text")
             is ImageMessage -> println("this is image")
         }
+
+
+        val txt1:String = BaseMessage.makeMessage(user, Chat("0"), Date(),                               "text",  "any text message").formatMessage()
+        val txt2:String = BaseMessage.makeMessage(user, Chat("0"), Date().add(-2, TimeUnits.HOUR), "image", "https://anyurl.com",true).formatMessage()
+
+        assertEquals("Василий отправил сообщение \"any text message\" только что", txt1)
+        assertEquals("Василий получил изображение \"https://anyurl.com\" 2 часа назад", txt2)
+
     }
 
     @Test
