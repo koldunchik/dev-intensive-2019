@@ -96,7 +96,7 @@ fun Date.humanizeDiff(date: Date = Date()) : String {
         in 75*60 + 1 .. 22*60*60 -> return addVerbal(hoursSuffix((delta/3600).toInt()))
         in 22*60*60 + 1 .. 26*60*60 -> return addVerbal("день")
         in 26*60*60 + 1 .. 360*24*60*60 -> return addVerbal(daysSuffix((delta/(3600*24)).toInt()))
-        else -> if (sign < 0) return "более чем через год" else return "более года назад"
+        else -> if (sign < 0) return "через более года" else return "более года назад"
     }
 
     return ""

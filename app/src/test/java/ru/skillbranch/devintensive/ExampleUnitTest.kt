@@ -88,12 +88,60 @@ class ExampleUnitTest {
     fun test_humanize_diff(){
         assertEquals("только что", Date().humanizeDiff(Date().add(-1, TimeUnits.SECOND)))
         assertEquals("несколько секунд назад", Date().humanizeDiff(Date().add(-33, TimeUnits.SECOND)))
+        assertEquals("через несколько секунд", Date().humanizeDiff(Date().add(+33, TimeUnits.SECOND)))
+
+        assertEquals("час назад", Date().humanizeDiff(Date().add(-1, TimeUnits.HOUR)))
+        assertEquals("через час", Date().humanizeDiff(Date().add(1, TimeUnits.HOUR)))
+
         assertEquals("2 часа назад", Date().humanizeDiff(Date().add(-2, TimeUnits.HOUR)))
+        assertEquals("через 2 часа", Date().humanizeDiff(Date().add(2, TimeUnits.HOUR)))
+
+        assertEquals("5 часов назад", Date().humanizeDiff(Date().add(-5, TimeUnits.HOUR)))
+        assertEquals("через 5 часов", Date().humanizeDiff(Date().add(5, TimeUnits.HOUR)))
+
+        assertEquals("21 час назад", Date().humanizeDiff(Date().add(-21, TimeUnits.HOUR)))
+        assertEquals("через 21 час", Date().humanizeDiff(Date().add(21, TimeUnits.HOUR)))
+
+
+        assertEquals("день назад", Date().humanizeDiff(Date().add(-1, TimeUnits.DAY)))
+        assertEquals("через день", Date().humanizeDiff(Date().add(1, TimeUnits.DAY)))
+
+        assertEquals("2 дня назад", Date().humanizeDiff(Date().add(-2, TimeUnits.DAY)))
+        assertEquals("через 2 дня", Date().humanizeDiff(Date().add(2, TimeUnits.DAY)))
+
         assertEquals("5 дней назад", Date().humanizeDiff(Date().add(-5, TimeUnits.DAY)))
+        assertEquals("через 5 дней", Date().humanizeDiff(Date().add(5, TimeUnits.DAY)))
+
+        assertEquals("21 день назад", Date().humanizeDiff(Date().add(-21, TimeUnits.DAY)))
+        assertEquals("через 21 день", Date().humanizeDiff(Date().add(21, TimeUnits.DAY)))
+
+        assertEquals("через минуту", Date().humanizeDiff(Date().add(1, TimeUnits.MINUTE)))
+        assertEquals("минуту назад", Date().humanizeDiff(Date().add(-1, TimeUnits.MINUTE)))
+
         assertEquals("через 2 минуты", Date().humanizeDiff(Date().add(2, TimeUnits.MINUTE)))
+        assertEquals("2 минуты назад", Date().humanizeDiff(Date().add(-2, TimeUnits.MINUTE)))
+
+        assertEquals("через 5 минут", Date().humanizeDiff(Date().add(5, TimeUnits.MINUTE)))
+        assertEquals("5 минут назад", Date().humanizeDiff(Date().add(-5, TimeUnits.MINUTE)))
+
+        assertEquals("через 21 минуту", Date().humanizeDiff(Date().add(21, TimeUnits.MINUTE)))
+        assertEquals("21 минуту назад", Date().humanizeDiff(Date().add(-21, TimeUnits.MINUTE)))
+
+        assertEquals("день назад", Date().humanizeDiff(Date().add(-1, TimeUnits.DAY)))
+        assertEquals("через день", Date().humanizeDiff(Date().add(1, TimeUnits.DAY)))
+
+        assertEquals("через 2 дня", Date().humanizeDiff(Date().add(2, TimeUnits.DAY)))
+        assertEquals("2 дня назад", Date().humanizeDiff(Date().add(-2, TimeUnits.DAY)))
+
         assertEquals("через 7 дней", Date().humanizeDiff(Date().add(7, TimeUnits.DAY)))
+        assertEquals("7 дней назад", Date().humanizeDiff(Date().add(-7, TimeUnits.DAY)))
+
+
         assertEquals("более года назад", Date().humanizeDiff(Date().add(-400, TimeUnits.DAY)))
-        assertEquals("более чем через год", Date().humanizeDiff(Date().add(400, TimeUnits.DAY)))
+
+
+        assertEquals("более года назад", Date().humanizeDiff(Date().add(-400, TimeUnits.DAY)))
+        assertEquals("через более года", Date().humanizeDiff(Date().add(400, TimeUnits.DAY)))
 
     }
 
