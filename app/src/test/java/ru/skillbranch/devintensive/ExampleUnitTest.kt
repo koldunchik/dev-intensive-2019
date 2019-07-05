@@ -180,6 +180,6 @@ class ExampleUnitTest {
         assertEquals("4 минуты", TimeUnits.MINUTE.plural(4))
         assertEquals("19 часов", TimeUnits.HOUR.plural(19))
         assertEquals("222 дня", TimeUnits.DAY.plural(222))
-        assertEquals("364 дня", TimeUnits.DAY.plural(364))
+        assertEquals("365 дней", TimeUnits.DAY.plural(365))
     }
 }
