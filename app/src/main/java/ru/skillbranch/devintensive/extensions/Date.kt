@@ -15,7 +15,16 @@ enum class TimeUnits {
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(i: Int): String {
+        when (this) {
+            SECOND  -> return secondsSuffix(i)
+            MINUTE -> return minutesSuffix(i)
+            HOUR -> return hoursSuffix(i)
+            DAY -> return daysSuffix(i)
+        }
+    }
 }
 
 fun Date.format(thePattern:String = "HH:mm:ss dd.MM.yy"): String{
@@ -39,6 +48,16 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
         TimeUnits.HOUR -> return add(Calendar.HOUR_OF_DAY,value)
         TimeUnits.DAY -> return add(Calendar.DAY_OF_MONTH, value)
     }
+}
+
+fun secondsSuffix(value: Int):String {
+    var res = "$value "
+    when (value % 10) {
+        1 -> res+="секунду"
+        in 2..4 -> res+="секунды"
+        else -> res+="секунд"
+    }
+    return res
 }
 
 fun hoursSuffix(hours: Int):String {

@@ -174,4 +174,12 @@ class ExampleUnitTest {
         var u: User = User.Builder().id("1").firstName("J").lastName("Doc").isOnline(false).build()
     }
 
+    @Test
+    fun test_plural() {
+        assertEquals("1 секунду", TimeUnits.SECOND.plural(1))
+        assertEquals("4 минуты", TimeUnits.MINUTE.plural(4))
+        assertEquals("19 часов", TimeUnits.HOUR.plural(19))
+        assertEquals("222 дня", TimeUnits.DAY.plural(222))
+        assertEquals("364 дня", TimeUnits.DAY.plural(364))
+    }
 }
