@@ -3,10 +3,7 @@ package ru.skillbranch.devintensive
 import org.junit.Test
 
 import org.junit.Assert.*
-import ru.skillbranch.devintensive.extensions.TimeUnits
-import ru.skillbranch.devintensive.extensions.add
-import ru.skillbranch.devintensive.extensions.format
-import ru.skillbranch.devintensive.extensions.humanizeDiff
+import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.*
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
@@ -181,5 +178,22 @@ class ExampleUnitTest {
         assertEquals("19 часов", TimeUnits.HOUR.plural(19))
         assertEquals("222 дня", TimeUnits.DAY.plural(222))
         assertEquals("365 дней", TimeUnits.DAY.plural(365))
+    }
+
+    @Test
+    fun test_truncate() {
+
+        //extension усекающий исходную строку до указанного числа символов(по умолчанию 16) и возвращающий усеченную строку с заполнителем "..."
+        // (если строка была усечена) если последний символ усеченной строки является пробелом-удаляет его и добавляет заполнитель
+        //Пример:
+
+        assertEquals("Bender Bending R...", "Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate())
+        assertEquals("Bender Bending...",   "Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate(15))
+        assertEquals("A  ", "A     ".truncate(3))
+
+        assertEquals("A", "A".truncate(1))
+        assertEquals("AB", "AB".truncate(1))
+
+
     }
 }
