@@ -192,7 +192,16 @@ class ExampleUnitTest {
         assertEquals("A  ", "A     ".truncate(3))
 
         assertEquals("A", "A".truncate(1))
-        assertEquals("AB", "AB".truncate(1))
+        assertEquals("A", "AB".truncate(1))
+        assertEquals("AB", "AB".truncate(2))
+        assertEquals("ABC", "ABC".truncate(3))
+
+        assertEquals("ABC...", "ABCD".truncate(3))
+        assertEquals("ABCDEF...", "ABCDEFG".truncate(6))
+
+        assertEquals("ABCDEF...", "ABCDEFGHASIDJASIDJIASJDIASJDIDJ".truncate(6))
+        assertEquals("A B...", "A B C D E".truncate(3))
+        assertEquals(" B...", " B  C D E".truncate(3))
 
 
     }

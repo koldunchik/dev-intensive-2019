@@ -5,12 +5,16 @@ const val dots = "..."
 
 fun String.truncate(len : Int = 16): String {
     val oldLength = this.length
-    if (oldLength < len || oldLength < 3) {
+    if (oldLength < len) {
         return this
     }
 
+    if (len < 3) {
+        return  this.substring(0, len)
+    }
+
     var truncated:String = this.substring(0, len)
-    var cut:String = this.substring(len + 1, this.length - 1).trim()
+    var cut:String = this.substring(len, this.length).trim()
 
     if (cut.isNullOrEmpty()) {
         return truncated;
