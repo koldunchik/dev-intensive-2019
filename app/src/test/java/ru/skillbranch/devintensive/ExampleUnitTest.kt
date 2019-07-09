@@ -182,7 +182,6 @@ class ExampleUnitTest {
 
     @Test
     fun test_truncate() {
-
         //extension усекающий исходную строку до указанного числа символов(по умолчанию 16) и возвращающий усеченную строку с заполнителем "..."
         // (если строка была усечена) если последний символ усеченной строки является пробелом-удаляет его и добавляет заполнитель
         //Пример:
@@ -202,7 +201,20 @@ class ExampleUnitTest {
         assertEquals("ABCDEF...", "ABCDEFGHASIDJASIDJIASJDIASJDIDJ".truncate(6))
         assertEquals("A B...", "A B C D E".truncate(3))
         assertEquals(" B...", " B  C D E".truncate(3))
+   }
 
+    @Test
+    fun test_strip_html() {
+//    extension позволяющий очистить строку от html тегов и html escape последовательностей ("& < > ' ""), а так же удалить пустые символы (пробелы) между словами если их больше 1.
+//    Пример:
+//    "<p class="title">Образовательное IT-сообщество Skill Branch</p>".stripHtml() //Образовательное IT-сообщество Skill Branch
+//    "<p>Образовательное       IT-сообщество Skill Branch</p>".stripHtml() //Образовательное IT-сообщество Skill Branch
+
+        assertEquals("Образовательное IT-сообщество Skill Branch", "<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>".stripHtml())
+        assertEquals("Образовательное IT-сообщество Skill Branch", "<p>Образовательное       IT-сообщество Skill Branch</p>".stripHtml())
+        assertEquals("Образовательное & IT-сообщество Skill & Branch", "<p>Образовательное       &amp; IT-сообщество Skill &amp; Branch</p>".stripHtml())
+        assertEquals("&\"><'", "&amp;&quot;&gt;&lt;&apos;".stripHtml())
 
     }
+
 }
