@@ -35,12 +35,8 @@ fun String.truncate(len : Int = 16): String {
 
 fun String.stripHtml(): String {
     var result: String = this
-    var cleanHtml: String = result.replace("\\<[^>]*>".toRegex(),"")
-    var strip: String = cleanHtml.replace("\\s+".toRegex(), " ")
-    strip = strip.replace("&amp;".toRegex(),"&")
-    strip = strip.replace("&gt;".toRegex(),">")
-    strip = strip.replace("&lt;".toRegex(),"<")
-    strip = strip.replace("&quot;".toRegex(),"\"")
-    strip = strip.replace("&apos;".toRegex(),"'")
-    return strip
+    result = result.replace("\\<[^>]*>".toRegex(),"")
+    result = result.replace("&.+?;".toRegex(),"")
+    result = result.replace("\\s+".toRegex(), " ")
+    return result
 }

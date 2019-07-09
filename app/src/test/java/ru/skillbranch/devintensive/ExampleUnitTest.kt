@@ -212,8 +212,8 @@ class ExampleUnitTest {
 
         assertEquals("Образовательное IT-сообщество Skill Branch", "<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>".stripHtml())
         assertEquals("Образовательное IT-сообщество Skill Branch", "<p>Образовательное       IT-сообщество Skill Branch</p>".stripHtml())
-        assertEquals("Образовательное & IT-сообщество Skill & Branch", "<p>Образовательное       &amp; IT-сообщество Skill &amp; Branch</p>".stripHtml())
-        assertEquals("&\"><'", "&amp;&quot;&gt;&lt;&apos;".stripHtml())
+        assertEquals("Образовательное IT-сообщество Skill Branch", "<p>Образовательное       &amp; IT-сообщество Skill &amp; Branch</p>".stripHtml())
+        assertEquals("ABC", "A&amp;&quot;&gt;&lt;&apos;B&amp;C".stripHtml())
 
     }
 
