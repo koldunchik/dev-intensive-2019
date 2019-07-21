@@ -217,4 +217,14 @@ class ExampleUnitTest {
 
     }
 
+
+    @Test
+    fun test_bender() {
+        var q = Bender.Question.NAME
+        assertEquals("Как меня зовут?", q.question)
+        assertEquals("Назови мою профессию?", q.nextQuestion().question)
+        assertEquals("На этом все, вопросов больше нет", q.nextQuestion().nextQuestion().nextQuestion().nextQuestion().nextQuestion().question)
+
+    }
+
 }
