@@ -224,6 +224,52 @@ class ExampleUnitTest {
         assertEquals("Как меня зовут?", q.question)
         assertEquals("Назови мою профессию?", q.nextQuestion().question)
         assertEquals("На этом все, вопросов больше нет", q.nextQuestion().nextQuestion().nextQuestion().nextQuestion().nextQuestion().question)
+    }
+
+    @Test
+    fun test_listen_answer_good_case() {
+        var benderObj : Bender = Bender(Bender.Status.NORMAL, Bender.Question.NAME)
+
+        var q: Pair<String, Triple<Int, Int, Int>>
+
+        q = benderObj.listenAnswer("Bender") //
+        assertEquals("Отлично - ты справился\nНазови мою профессию?", q.first)
+
+        q = benderObj.listenAnswer("bender") //
+        assertEquals("Отлично - ты справился\nИз чего я сделан?", q.first)
+
+        q = benderObj.listenAnswer("metal") //
+        assertEquals("Отлично - ты справился\nКогда меня создали?", q.first)
+
+        q = benderObj.listenAnswer("2993") //
+        assertEquals("Отлично - ты справился\nМой серийный номер?", q.first)
+
+        q = benderObj.listenAnswer("2716057") //
+        assertEquals("Отлично - ты справился\nНа этом все, вопросов больше нет", q.first)
+    }
+
+    @Test
+    fun test_listen_answer_bad_case() {
+        var benderObj : Bender = Bender(Bender.Status.NORMAL, Bender.Question.NAME)
+
+        var q: Pair<String, Triple<Int, Int, Int>>
+
+        q = benderObj.listenAnswer("BAD") //
+        assertEquals("Это неправильный ответ\nКак меня зовут?", q.first)
+        assertEquals(Bender.Status.WARNING.color, q.second)
+
+        q = benderObj.listenAnswer("BAD") //
+        assertEquals("Это неправильный ответ\nКак меня зовут?", q.first)
+        assertEquals(Bender.Status.DANGER.color, q.second)
+
+        q = benderObj.listenAnswer("BAD") //
+        assertEquals("Это неправильный ответ\nКак меня зовут?", q.first)
+        assertEquals(Bender.Status.CRITICAL.color, q.second)
+
+        q = benderObj.listenAnswer("BAD") //
+        assertEquals("Это неправильный ответ. Давай все по новой\nКак меня зовут?", q.first)
+        assertEquals(Bender.Status.NORMAL.color, q.second)
+
 
     }
 
