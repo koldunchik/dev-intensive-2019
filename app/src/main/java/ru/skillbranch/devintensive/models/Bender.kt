@@ -22,6 +22,7 @@ class Bender
         }
 
     }
+
     enum class Question(val question: String, val answers: List<String>) {
         NAME("Как меня зовут?", listOf("бендер", "bender")),
         PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")),
@@ -41,6 +42,8 @@ class Bender
             }
         }
     }
+
+    fun askQuestion():String = question.question
 
     fun listenAnswer(answer:String): Pair<String, Triple<Int, Int, Int>> {
         if (question.answers.contains(answer.trim().toLowerCase())) {
