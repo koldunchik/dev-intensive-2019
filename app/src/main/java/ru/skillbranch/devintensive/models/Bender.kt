@@ -24,7 +24,7 @@ class Bender
     }
 
     enum class Question(val question: String, val answers: List<String>) {
-        NAME("Как меня зовут?", listOf("Бендер", "Bender")),
+        NAME("Как меня зовут?", listOf("бендер", "bender")),
         PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")),
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")),
         BDAY("Когда меня создали?", listOf("2993")),
@@ -46,7 +46,12 @@ class Bender
     fun askQuestion():String = question.question
 
     fun listenAnswer(answer:String): Pair<String, Triple<Int, Int, Int>> {
-        if (question.answers.contains(answer.trim())) {
+        if (!isValidAnswer(answer)) {
+            val description = invalidAnswerDescription(answer)
+            return "${description}\n${question.question}" to status.color
+        }
+
+        if (question.answers.contains(answer.trim().toLowerCase())) {
             question = question.nextQuestion()
             return "Отлично - ты справился\n${question.question}" to status.color
         } else {
@@ -56,18 +61,10 @@ class Bender
             if (counter == 0) {
                 status = Status.NORMAL
                 question = Question.NAME
-                return "${checkAnswer(answer)}. Давай все по новой\n${question.question}" to status.color
+                return "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             } else {
-                return "${checkAnswer(answer)}\n${question.question}" to status.color
+                return "Это неправильный ответ\n${question.question}" to status.color
             }
-        }
-    }
-
-    fun checkAnswer(answer:String) : String {
-        if (isValidAnswer(answer) || Question.IDLE.equals(question)) {
-            return "Это неправильный ответ"
-        } else {
-            return invalidAnswerDescription(answer);
         }
     }
 

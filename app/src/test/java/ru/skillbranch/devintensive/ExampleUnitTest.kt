@@ -268,5 +268,16 @@ class ExampleUnitTest {
         q = benderObj.listenAnswer("BAD") //
         assertEquals("Это неправильный ответ. Давай все по новой\nКак меня зовут?", q.first)
         assertEquals(Bender.Status.NORMAL.color, q.second)
+
+        q = benderObj.listenAnswer("bad") //
+        assertEquals("Имя должно начинаться с заглавной буквы\nКак меня зовут?", q.first)
+
+        q = benderObj.listenAnswer("Bender") //
+        assertEquals("Отлично - ты справился\nНазови мою профессию?", q.first)
+
+        q = benderObj.listenAnswer("Bad") //
+        assertEquals("Профессия должна начинаться со строчной буквы\nНазови мою профессию?", q.first)
+
+
     }
 }
