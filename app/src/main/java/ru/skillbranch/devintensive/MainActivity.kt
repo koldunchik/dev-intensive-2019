@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var benderImage: ImageView
     lateinit var messageEt: EditText
 
-    private fun updateUI(txt: String) {
-        val (r, g, b) = benderObj.status.color
+    private fun updateUI(status: String, color: Triple<Int, Int, Int>) {
+        val (r, g, b) = color
         benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
-        textTxt.text = txt
+        textTxt.text = status
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity() {
         messageEt = et_message
         sendBtn = iv_send
 
-        updateUI(benderObj.askQuestion())
+        updateUI(benderObj.askQuestion(), benderObj.status.color)
 
         sendBtn.setOnClickListener {
             val answer:String = et_message.text.toString()
-            var result = benderObj.listenAnswer(answer)
-            updateUI(result.first)
+            var (status, color) = benderObj.listenAnswer(answer)
+            updateUI(status, color)
         }
     }
 

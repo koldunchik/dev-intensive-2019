@@ -217,7 +217,6 @@ class ExampleUnitTest {
 
     }
 
-
     @Test
     fun test_bender() {
         var q = Bender.Question.NAME
@@ -269,8 +268,5 @@ class ExampleUnitTest {
         q = benderObj.listenAnswer("BAD") //
         assertEquals("Это неправильный ответ. Давай все по новой\nКак меня зовут?", q.first)
         assertEquals(Bender.Status.NORMAL.color, q.second)
-
-
     }
-
 }

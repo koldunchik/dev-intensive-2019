@@ -17,7 +17,7 @@ class Bender
                 NORMAL -> return WARNING;
                 WARNING -> return DANGER;
                 DANGER -> return CRITICAL;
-                CRITICAL -> return CRITICAL;
+                CRITICAL -> return NORMAL;
             }
         }
 
