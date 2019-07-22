@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import hideKeyboard
+import isKeyboardOpen
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.models.Bender
 
@@ -42,6 +44,9 @@ class MainActivity : AppCompatActivity() {
             val answer:String = et_message.text.toString()
             var (status, color) = benderObj.listenAnswer(answer)
             updateUI(status, color)
+            if (this.isKeyboardOpen()){
+                this.hideKeyboard()
+            }
         }
     }
 
