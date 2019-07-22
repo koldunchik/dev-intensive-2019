@@ -24,7 +24,7 @@ class Bender
     }
 
     enum class Question(val question: String, val answers: List<String>) {
-        NAME("Как меня зовут?", listOf("бендер", "bender")),
+        NAME("Как меня зовут?", listOf("Бендер", "Bender")),
         PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")),
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")),
         BDAY("Когда меня создали?", listOf("2993")),
@@ -46,7 +46,7 @@ class Bender
     fun askQuestion():String = question.question
 
     fun listenAnswer(answer:String): Pair<String, Triple<Int, Int, Int>> {
-        if (question.answers.contains(answer.trim().toLowerCase())) {
+        if (question.answers.contains(answer.trim())) {
             question = question.nextQuestion()
             return "Отлично - ты справился\n${question.question}" to status.color
         } else {
@@ -56,10 +56,40 @@ class Bender
             if (counter == 0) {
                 status = Status.NORMAL
                 question = Question.NAME
-                return "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+                return "${checkAnswer(answer)}. Давай все по новой\n${question.question}" to status.color
             } else {
-                return "Это неправильный ответ\n${question.question}" to status.color
+                return "${checkAnswer(answer)}\n${question.question}" to status.color
             }
+        }
+    }
+
+    fun checkAnswer(answer:String) : String {
+        if (isValidAnswer(answer) || Question.IDLE.equals(question)) {
+            return "Это неправильный ответ"
+        } else {
+            return invalidAnswerDescription(answer);
+        }
+    }
+
+    fun isValidAnswer(answer:String) : Boolean {
+        when(question) {
+            Question.NAME -> return answer.trim().firstOrNull()?.isUpperCase() ?: false;
+            Question.PROFESSION -> return answer.trim().firstOrNull()?.isLowerCase() ?: false;
+            Question.MATERIAL -> return answer.trim().contains(Regex("\\d")).not();
+            Question.BDAY -> return answer.trim().contains(Regex("^[0-9]*$"));
+            Question.SERIAL -> return answer.trim().contains(Regex("^[0-9]{7}$"));
+            Question.IDLE -> return true;
+        }
+    }
+
+    fun invalidAnswerDescription(answer:String) : String {
+        when (question) {
+            Question.NAME -> return "Имя должно начинаться с заглавной буквы"
+            Question.PROFESSION -> return "Профессия должна начинаться со строчной буквы"
+            Question.MATERIAL -> return "Материал не должен содержать цифр"
+            Question.BDAY -> return "Год моего рождения должен содержать только цифры"
+            Question.SERIAL -> return "Серийный номер содержит только цифры, и их 7"
+            Question.IDLE -> return "" //игнорировать валидацию
         }
     }
 }
