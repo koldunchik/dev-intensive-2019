@@ -1,3 +1,5 @@
+package ru.skillbranch.devintensive.extensions
+
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
