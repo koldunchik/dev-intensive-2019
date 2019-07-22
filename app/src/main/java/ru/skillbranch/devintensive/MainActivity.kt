@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         messageEt = et_message
         sendBtn = iv_send
 
-        updateUI(benderObj.askQuestion(), benderObj.status.color)
+       updateUI(benderObj.askQuestion(), benderObj.status.color)
 
         sendBtn.setOnClickListener {
             val answer:String = et_message.text.toString()
@@ -47,6 +49,12 @@ class MainActivity : AppCompatActivity() {
             if (this.isKeyboardOpen()){
                 this.hideKeyboard()
             }
+        }
+
+        messageEt.setRawInputType(InputType.TYPE_CLASS_TEXT)
+        messageEt.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) sendBtn.performClick()
+            false
         }
     }
 
