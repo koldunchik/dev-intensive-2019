@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         messageEt.setRawInputType(InputType.TYPE_CLASS_TEXT)
         messageEt.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) sendBtn.performClick()
+            if (actionId == EditorInfo.IME_ACTION_DONE) sendBtn.callOnClick()
             false
         }
     }
