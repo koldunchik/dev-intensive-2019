@@ -43,19 +43,26 @@ class MainActivity : AppCompatActivity() {
        updateUI(benderObj.askQuestion(), benderObj.status.color)
 
         sendBtn.setOnClickListener {
-            val answer:String = et_message.text.toString()
-            var (status, color) = benderObj.listenAnswer(answer)
-            updateUI(status, color)
-            if (this.isKeyboardOpen()){
-                this.hideKeyboard()
-            }
+            process()
         }
 
         messageEt.setRawInputType(InputType.TYPE_CLASS_TEXT)
-        messageEt.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) sendBtn.callOnClick()
+        messageEt.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                process()
+            }
             false
         }
+    }
+
+    fun process() {
+        val answer:String = et_message.text.toString()
+        var (status, color) = benderObj.listenAnswer(answer)
+        updateUI(status, color)
+        if (this.isKeyboardOpen()){
+            this.hideKeyboard()
+        }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
